@@ -1,12 +1,12 @@
 import { cloneDeep } from 'lodash'
 
-import { AskResponse, Citation } from '../../api'
+import { AskResponse, Citation, AzureSqlServerCodeExecResult } from '../../api'
 
 export type ParsedAnswer = {
   citations: Citation[]
   markdownFormatText: string,
-  generated_chart: string | null
-} | null
+  plotly_data: AzureSqlServerCodeExecResult | null
+}
 
 export const enumerateCitations = (citations: Citation[]) => {
   const filepathMap = new Map()
@@ -23,7 +23,6 @@ export const enumerateCitations = (citations: Citation[]) => {
 }
 
 export function parseAnswer(answer: AskResponse): ParsedAnswer {
-  if (typeof answer.answer !== "string") return null
   let answerText = answer.answer
   const citationLinks = answerText.match(/\[(doc\d\d?\d?)]/g)
 
@@ -48,6 +47,6 @@ export function parseAnswer(answer: AskResponse): ParsedAnswer {
   return {
     citations: filteredCitations,
     markdownFormatText: answerText,
-    generated_chart: answer.generated_chart
+    plotly_data: answer.plotly_data
   }
 }

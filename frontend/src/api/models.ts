@@ -1,7 +1,9 @@
+import Plotly from 'react-plotly.js'
+
 export type AskResponse = {
-  answer: string | []
+  answer: string
   citations: Citation[]
-  generated_chart: string | null
+  plotly_data: AzureSqlServerCodeExecResult | null
   error?: string
   message_id?: string
   feedback?: Feedback
@@ -25,12 +27,17 @@ export type ToolMessageContent = {
   intent: string
 }
 
+export type AzureSqlServerCodeExecResult = {
+  data: Plotly.Data[]
+  layout: Partial<Plotly.Layout>
+}
+
 export type AzureSqlServerExecResult = {
   intent: string
   search_query: string | null
   search_result: string | null
   code_generated: string | null
-  code_exec_result?: string | undefined
+  code_exec_result?: AzureSqlServerCodeExecResult | undefined
 }
 
 export type AzureSqlServerExecResults = {
@@ -40,7 +47,7 @@ export type AzureSqlServerExecResults = {
 export type ChatMessage = {
   id: string
   role: string
-  content: string | [{ type: string; text: string }, { type: string; image_url: { url: string } }]
+  content: string
   end_turn?: boolean
   date: string
   feedback?: Feedback
@@ -130,7 +137,6 @@ export type UI = {
   logo?: string
   chat_logo?: string
   show_share_button?: boolean
-  show_chat_history_button?: boolean
 }
 
 export type FrontendSettings = {
@@ -138,7 +144,6 @@ export type FrontendSettings = {
   feedback_enabled?: string | null
   ui?: UI
   sanitize_answer?: boolean
-  oyd_enabled?: boolean
 }
 
 export enum Feedback {
