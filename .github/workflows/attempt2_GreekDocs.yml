@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://sampleappaoaichatgpt.azurecr.io/
-        username: ${{ secrets.AzureAppService_ContainerUsername_d1843dfae8d348928c0e1248f18a4994 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_f6f77a048910453eb78a78a844d7e5af }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_5dd669b14e1e410c99d75003621a036f }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_c9533da5edd44e3fabc0a78822e71a34 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d1843dfae8d348928c0e1248f18a4994 }}/sample-app-aoai-chatgpt:${{ github.sha }}
+        tags: sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5dd669b14e1e410c99d75003621a036f }}/sample-app-aoai-chatgpt:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'GreekDocs'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ccb67c79220445348ed3890b36ef6271 }}
-        images: 'sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_d1843dfae8d348928c0e1248f18a4994 }}/sample-app-aoai-chatgpt:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f34d971476ff43e18a24354070661ec5 }}
+        images: 'sampleappaoaichatgpt.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5dd669b14e1e410c99d75003621a036f }}/sample-app-aoai-chatgpt:${{ github.sha }}'
